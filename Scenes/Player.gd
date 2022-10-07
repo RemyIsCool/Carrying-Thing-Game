@@ -1,3 +1,5 @@
+##### Somebody else's code - will replace later
+
 extends KinematicBody2D
 
 export(float) var speed
@@ -25,6 +27,13 @@ func _physics_process(_delta):
 	velocity.y += gravity
 	movement()
 	velocity = move_and_slide(velocity, Vector2.UP)
+	
+	## This is my code
+	
+	if Input.is_action_just_pressed("ui_accept") and $PickupCollider.overlaps_body(get_parent().get_node("./PickUp")):
+		get_parent().get_node("./PinJoint2D").node_b = ""
+	
+	## This is more of somebody else's code that i found on github
 
 func movement():
 	if Keyboard:
