@@ -24,6 +24,7 @@ node_b = NodePath("../PickUp")
 [node name="PickUp" type="RigidBody2D" parent="."]
 position = Vector2( 147, 170 )
 mode = 2
+gravity_scale = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickUp"]
 shape = SubResource( 1 )

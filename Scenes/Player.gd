@@ -28,10 +28,11 @@ func _physics_process(_delta):
 	movement()
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
-	## This is my code
+	## This is my code (oh i will refactor this later lol)
 	
 	if Input.is_action_just_pressed("ui_accept") and $PickupCollider.overlaps_body(get_parent().get_node("./PickUp")):
 		get_parent().get_node("./PinJoint2D").node_b = ""
+		get_parent().get_node("./PickUp").apply_central_impulse(Vector2(1, -1) * 300)
 	
 	## This is more of somebody else's code that i found on github
 
