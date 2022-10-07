@@ -33,7 +33,7 @@ func _physics_process(delta):
 	movement()
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
-	## This is my code (oh i will refactor this later lol)
+	## This is my code. The government has instructed me to refactor this.
 	
 	if Input.is_action_just_pressed(KleftInput):
 		left = true
