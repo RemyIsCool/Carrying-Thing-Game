@@ -42,10 +42,12 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_released("ui_accept") and $PickupCollider.overlaps_body(get_parent().get_node("./PickUp")):
 		get_parent().get_node("./PinJoint2D").node_b = ""
+		get_parent().get_node("./PickUp").is_held = false
 		get_parent().get_node("./PickUp").apply_central_impulse((Vector2(-1, -1) if left else Vector2(1, -1)) * (300 * max(0.5, time_count)))
 		time_count = 0
-	
+	print(get_parent().get_node("./PickUp").mode == RigidBody2D.MODE_CHARACTER)
 	if Input.is_action_just_pressed("ui_down") and $PickupCollider.overlaps_body(get_parent().get_node("./PickUp")):
+		get_parent().get_node("./PickUp").is_held = true
 		get_parent().get_node("./PickUp").global_transform.origin = Vector2(position.x, position.y - 24)
 		get_parent().get_node("./PinJoint2D").node_b = "../PickUp"
 	
@@ -75,3 +77,5 @@ func movement():
 		if is_on_floor():
 			if Input.is_action_just_pressed(CjumpInput):
 				velocity.y -= jumpHeight
+
+
