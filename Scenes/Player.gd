@@ -20,19 +20,37 @@ export(bool) var Controller
 
 var velocity
 
+## These lines are also mine
+var left := false
+var time_count := 0.0
+## The rest is theirs
+
 func _ready():
 	velocity = Vector2.ZERO
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	velocity.y += gravity
 	movement()
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	## This is my code (oh i will refactor this later lol)
 	
-	if Input.is_action_just_pressed("ui_accept") and $PickupCollider.overlaps_body(get_parent().get_node("./PickUp")):
+	if Input.is_action_just_pressed(KleftInput):
+		left = true
+	if Input.is_action_just_pressed(KrightInput):
+		left = false
+	
+	if Input.is_action_just_released("ui_accept") and $PickupCollider.overlaps_body(get_parent().get_node("./PickUp")):
 		get_parent().get_node("./PinJoint2D").node_b = ""
-		get_parent().get_node("./PickUp").apply_central_impulse(Vector2(1, -1) * 300)
+		get_parent().get_node("./PickUp").apply_central_impulse((Vector2(-1, -1) if left else Vector2(1, -1)) * (300 * max(0.5, time_count)))
+		time_count = 0
+	
+	if Input.is_action_just_pressed("ui_down") and $PickupCollider.overlaps_body(get_parent().get_node("./PickUp")):
+		get_parent().get_node("./PickUp").global_transform.origin = Vector2(position.x, position.y - 24)
+		get_parent().get_node("./PinJoint2D").node_b = "../PickUp"
+	
+	if Input.is_action_pressed("ui_accept") and time_count < 1:
+		time_count += delta * 2
 	
 	## This is more of somebody else's code that i found on github
 
