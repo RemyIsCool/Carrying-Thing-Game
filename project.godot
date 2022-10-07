@@ -13,6 +13,13 @@ config_version=4
 config/name="Carrying Things Game"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=384
+window/size/height=216
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
 [editor]
 
 version_control_autoload_on_startup=true
