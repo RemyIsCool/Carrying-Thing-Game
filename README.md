@@ -1,4 +1,4 @@
-# Carrying-Thing-Game AKA From Metal to Timber
+# From Metal to Timber
 A game where you carry stuff
 
 NOTE: This is just a work in progress.
