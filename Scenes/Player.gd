@@ -32,8 +32,7 @@ func _physics_process(delta):
 	velocity.y += gravity
 	movement()
 	
-	## I changed this line a bit
-	velocity = move_and_slide(velocity, Vector2.UP, false, 4, 0.785398, false)
+	velocity = move_and_slide(velocity, Vector.UP)
 	
 	## This is my code. The government has instructed me to refactor this at another time.
 	
