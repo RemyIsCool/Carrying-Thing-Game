@@ -55,7 +55,7 @@ func _physics_process(delta):
 		get_parent().get_node("./PinJoint2D").node_b = "../PickUp"
 	
 	if holding:
-		speed = 100
+		speed = 75
 		accelaration = 15
 		jumpHeight = 350
 	else:

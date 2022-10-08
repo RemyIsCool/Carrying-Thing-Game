@@ -26,6 +26,8 @@ node_b = NodePath("../PickUp")
 
 [node name="PickUp" type="RigidBody2D" parent="."]
 position = Vector2( 147, 170 )
+collision_layer = 32768
+collision_mask = 32768
 mode = 2
 physics_material_override = SubResource( 3 )
 gravity_scale = 10.0
@@ -43,6 +45,8 @@ texture = ExtResource( 2 )
 [node name="Platform" type="StaticBody2D" parent="." groups=["platform"]]
 position = Vector2( 214, 226 )
 scale = Vector2( 6.49387, 0.328392 )
+collision_layer = 32769
+collision_mask = 32769
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
 shape = SubResource( 2 )
@@ -54,6 +58,8 @@ texture = ExtResource( 2 )
 position = Vector2( 1, 113 )
 rotation = 1.5708
 scale = Vector2( 6.49387, 0.328392 )
+collision_layer = 32769
+collision_mask = 32769
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2"]
 shape = SubResource( 2 )
@@ -65,6 +71,8 @@ texture = ExtResource( 2 )
 position = Vector2( 433, 107 )
 rotation = 1.5708
 scale = Vector2( 6.49387, 0.328392 )
+collision_layer = 32769
+collision_mask = 32769
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform3"]
 shape = SubResource( 2 )
