@@ -1,35 +1,31 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Assets/PlayerIdle.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/SpritesheetAnimation.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 8.0
+radius = 6.0
 height = 16.0
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 14, 22 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
-speed = 500.0
-jumpHeight = 800.0
-gravity = 80.0
-accelaration = 25.0
-KrightInput = "ui_right"
-KleftInput = "ui_left"
-KjumpInput = "ui_up"
-Keyboard = true
 
-[node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.25, 0.5 )
+[node name="SpritesheetAnimation" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 16 )
 texture = ExtResource( 1 )
+offset = Vector2( 0, -16 )
+hframes = 7
+interval = 0.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 2 )
 shape = SubResource( 1 )
 
-[node name="PickupCollider" type="Area2D" parent="."]
-collision_mask = 32768
+[node name="JumpBufferTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupCollider"]
-shape = SubResource( 2 )
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true

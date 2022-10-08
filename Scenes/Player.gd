@@ -1,89 +1,69 @@
-##### Somebody else's code - will replace later
-
 extends KinematicBody2D
 
-export(float) var speed
-export(float) var jumpHeight
-export(float) var gravity
-export(float) var accelaration
-#Keyboard Input
-export(String) var KrightInput
-export(String) var KleftInput
-export(String) var KjumpInput
-#Controller Input
-export(String) var CrightInput
-export(String) var CleftInput
-export(String) var CjumpInput
-#Config charecter settings
-export(bool) var Keyboard
-export(bool) var Controller
 
-var velocity
+export var acceleration := 50
+export var air_acceleration := 40
+export var friction := 200
+export var air_friction := 100
+export var max_speed := 300
+export var jump_height := 500
+export var up_gravity := 30
+export var down_gravity := 60
+export var variable_jump := 100
 
-## These lines are also mine
-var left := false
-var holding := true
-## The rest is theirs
+var velocity := Vector2.ZERO
 
-func _ready():
-	velocity = Vector2.ZERO
+var left = false
+var was_in_air = false
 
-func _physics_process(delta):
-	velocity.y += gravity
-	movement()
+func _physics_process(delta: float) -> void:
+	if Input.is_action_pressed("left") or Input.is_action_pressed("right"):
+		velocity.x += (acceleration if is_on_floor() else air_acceleration) * Input.get_axis("left", "right")
+	elif velocity.x > friction:
+		velocity.x -= friction if is_on_floor() else air_friction
+	elif velocity.x < -friction:
+		velocity.x += friction if is_on_floor() else air_friction
+	else:
+		velocity.x = 0
 	
-	velocity = move_and_slide(velocity, Vector.UP)
+	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	
-	## This is my code. The government has instructed me to refactor this at another time.
+	velocity.y += down_gravity if velocity.y > 0 else up_gravity
 	
-	if Input.is_action_just_pressed(KleftInput):
+	if is_on_floor():
+		$CoyoteTimer.start()
+	
+	if Input.is_action_just_pressed("jump"):
+		$JumpBufferTimer.start()
+	
+	if $CoyoteTimer.time_left > 0 and $JumpBufferTimer.time_left > 0:
+		velocity.y = -jump_height
+		$CoyoteTimer.stop()
+		$JumpBufferTimer.stop()
+	
+	if Input.is_action_just_released("jump") and velocity.y < 0:
+		velocity.y += variable_jump
+	
+	velocity = move_and_slide(velocity, Vector2.UP)
+	
+	if Input.is_action_pressed("left"):
 		left = true
-	if Input.is_action_just_pressed(KrightInput):
+	if Input.is_action_pressed("right"):
 		left = false
 	
-	if Input.is_action_just_pressed("ui_accept") and holding and $PickupCollider.overlaps_body(get_parent().get_node("./PickUp")):
-		get_parent().get_node("./PinJoint2D").node_b = ""
-		get_parent().get_node("./PickUp").apply_central_impulse((Vector2(-1, -1) if left else Vector2(1, -1)) * 300)
-		get_parent().get_node("./PickUp").global_transform.origin = Vector2(position.x, position.y - 24)
-		holding = false
-	if Input.is_action_just_released("ui_accept"):
-		get_parent().get_node("./PickUp").linear_velocity *= 0.6
-	if Input.is_action_just_pressed("ui_down") and $PickupCollider.overlaps_body(get_parent().get_node("./PickUp")):
-		holding = true
-		get_parent().get_node("./PickUp").global_transform.origin = Vector2(position.x, position.y - 24)
-		get_parent().get_node("./PinJoint2D").node_b = "../PickUp"
+	$SpritesheetAnimation.flip_h = left
 	
-	if holding:
-		speed = 75
-		accelaration = 15
-		jumpHeight = 350
+	if is_on_floor():
+		if was_in_air:
+			was_in_air = false
+			$SpritesheetAnimation.scale = Vector2(1.3, 0.7)
+		else:
+			$SpritesheetAnimation.scale = lerp($SpritesheetAnimation.scale, Vector2.ONE, 0.15)
+			
 	else:
-		speed = 200
-		jumpHeight = 400
-		accelaration = 25
+		if was_in_air:
+			$SpritesheetAnimation.scale = lerp($SpritesheetAnimation.scale, Vector2.ONE, 0.15)
+		else:
+			was_in_air = true
+			$SpritesheetAnimation.scale = Vector2(0.7, 1.3)
 	
-	## This is more of somebody else's code that i found on github
-
-func movement():
-	if Keyboard:
-		if Input.is_action_pressed(KrightInput):
-			velocity.x = speed
-		elif Input.is_action_pressed(KleftInput):
-			velocity.x = -speed
-		else:
-			velocity.x = lerp(velocity.x, 0, 0.2)
-		if is_on_floor():
-			if Input.is_action_just_pressed(KjumpInput):
-				velocity.y -= jumpHeight
-	if Controller:
-		if Input.is_action_pressed(CrightInput):
-			velocity.x = speed
-		elif Input.is_action_pressed(CleftInput):
-			velocity.x = -speed
-		else:
-			velocity.x = lerp(velocity.x, 0, 0.2)
-		if is_on_floor():
-			if Input.is_action_just_pressed(CjumpInput):
-				velocity.y -= jumpHeight
-
-
