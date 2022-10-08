@@ -18,7 +18,10 @@ var was_in_air = false
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("left") or Input.is_action_pressed("right"):
-		velocity.x += (acceleration if is_on_floor() else air_acceleration) * Input.get_axis("left", "right")
+		if velocity.x < -max_speed + 1 or velocity.x > max_speed - 1:
+			velocity.x = max_speed * Input.get_axis("left", "right")
+		else:
+			velocity.x += (acceleration if is_on_floor() else air_acceleration) * Input.get_axis("left", "right")
 	elif velocity.x > friction:
 		velocity.x -= friction if is_on_floor() else air_friction
 	elif velocity.x < -friction:
