@@ -22,7 +22,7 @@ var velocity
 
 ## These lines are also mine
 var left := false
-var time_count := 0.0
+var holding := true
 ## The rest is theirs
 
 func _ready():
@@ -31,28 +31,37 @@ func _ready():
 func _physics_process(delta):
 	velocity.y += gravity
 	movement()
-	velocity = move_and_slide(velocity, Vector2.UP)
 	
-	## This is my code. The government has instructed me to refactor this.
+	## I changed this line a bit
+	velocity = move_and_slide(velocity, Vector2.UP, false, 4, 0.785398, false)
+	
+	## This is my code. The government has instructed me to refactor this at another time.
 	
 	if Input.is_action_just_pressed(KleftInput):
 		left = true
 	if Input.is_action_just_pressed(KrightInput):
 		left = false
 	
-	if Input.is_action_just_released("ui_accept") and $PickupCollider.overlaps_body(get_parent().get_node("./PickUp")):
+	if Input.is_action_just_pressed("ui_accept") and holding and $PickupCollider.overlaps_body(get_parent().get_node("./PickUp")):
 		get_parent().get_node("./PinJoint2D").node_b = ""
-		get_parent().get_node("./PickUp").is_held = false
-		get_parent().get_node("./PickUp").apply_central_impulse((Vector2(-1, -1) if left else Vector2(1, -1)) * (300 * max(0.5, time_count)))
-		time_count = 0
-	print(get_parent().get_node("./PickUp").mode == RigidBody2D.MODE_CHARACTER)
+		get_parent().get_node("./PickUp").apply_central_impulse((Vector2(-1, -1) if left else Vector2(1, -1)) * 300)
+		get_parent().get_node("./PickUp").global_transform.origin = Vector2(position.x, position.y - 24)
+		holding = false
+	if Input.is_action_just_released("ui_accept"):
+		get_parent().get_node("./PickUp").linear_velocity *= 0.6
 	if Input.is_action_just_pressed("ui_down") and $PickupCollider.overlaps_body(get_parent().get_node("./PickUp")):
-		get_parent().get_node("./PickUp").is_held = true
+		holding = true
 		get_parent().get_node("./PickUp").global_transform.origin = Vector2(position.x, position.y - 24)
 		get_parent().get_node("./PinJoint2D").node_b = "../PickUp"
 	
-	if Input.is_action_pressed("ui_accept") and time_count < 1:
-		time_count += delta * 2
+	if holding:
+		speed = 100
+		accelaration = 15
+		jumpHeight = 350
+	else:
+		speed = 200
+		jumpHeight = 400
+		accelaration = 25
 	
 	## This is more of somebody else's code that i found on github
 

@@ -1,14 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
-[ext_resource path="res://Scenes/PickUp.gd" type="Script" id=3]
 
 [sub_resource type="PhysicsMaterial" id=3]
-rough = true
-absorbent = true
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 8, 8 )
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -18,7 +15,9 @@ extents = Vector2( 32, 32 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 147, 195 )
-gravity = 50.0
+speed = 200.0
+jumpHeight = 400.0
+gravity = 25.0
 
 [node name="PinJoint2D" type="PinJoint2D" parent="."]
 position = Vector2( 147, 179 )
@@ -33,10 +32,9 @@ gravity_scale = 10.0
 continuous_cd = 1
 contacts_reported = 99999
 contact_monitor = true
-script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickUp"]
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="PickUp"]
 scale = Vector2( 0.25, 0.25 )
