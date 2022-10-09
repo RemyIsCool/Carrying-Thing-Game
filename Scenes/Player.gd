@@ -10,18 +10,41 @@ export var jump_height := 500
 export var up_gravity := 30
 export var down_gravity := 60
 export var variable_jump := 100
+export var variable_throw := 0.4
+export var holding_multiplier := 0.75
 
 var velocity := Vector2.ZERO
 
 var left = false
 var was_in_air = false
+var holding = false
+
+func _ready() -> void:
+	GlobalNodes.player = self
 
 func _physics_process(delta: float) -> void:
+	$WalkParticles.emitting = Input.get_axis("left", "right") != 0 and is_on_floor()
+	if Input.is_action_just_pressed("pick_up_throw"):
+		if holding:
+			GlobalNodes.box.apply_central_impulse((Vector2(-1, -1) if left else Vector2(1, -1)) * 300)
+			holding = false
+		elif $BoxDetector.overlaps_body(GlobalNodes.box):
+			GlobalNodes.box.global_transform.origin = position - Vector2(0, 24)
+			holding = true
+	
+	if holding and not $BoxDetector.overlaps_body(GlobalNodes.box):
+		holding = false
+	
+	GlobalNodes.joint.node_a = "../Player" if holding else ""
+	
+	if Input.is_action_just_released("pick_up_throw"):
+		GlobalNodes.box.linear_velocity *= variable_throw
+	
 	if Input.is_action_pressed("left") or Input.is_action_pressed("right"):
 		if velocity.x < -max_speed + 1 or velocity.x > max_speed - 1:
 			velocity.x = max_speed * Input.get_axis("left", "right")
 		else:
-			velocity.x += (acceleration if is_on_floor() else air_acceleration) * Input.get_axis("left", "right")
+			velocity.x += (acceleration if is_on_floor() else air_acceleration) * Input.get_axis("left", "right") * (holding_multiplier if holding else 1)
 	elif velocity.x > friction:
 		velocity.x -= friction if is_on_floor() else air_friction
 	elif velocity.x < -friction:
@@ -29,7 +52,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = 0
 	
-	velocity.x = clamp(velocity.x, -max_speed, max_speed)
+	velocity.x = clamp(velocity.x, -max_speed * (holding_multiplier if holding else 1), max_speed * (holding_multiplier if holding else 1))
 	
 	velocity.y += down_gravity if velocity.y > 0 else up_gravity
 	
@@ -40,9 +63,10 @@ func _physics_process(delta: float) -> void:
 		$JumpBufferTimer.start()
 	
 	if $CoyoteTimer.time_left > 0 and $JumpBufferTimer.time_left > 0:
-		velocity.y = -jump_height
+		velocity.y = -(jump_height * (holding_multiplier if holding else 1))
 		$CoyoteTimer.stop()
 		$JumpBufferTimer.stop()
+		$JumpParticles.restart()
 	
 	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y += variable_jump
