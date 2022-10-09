@@ -23,6 +23,11 @@ func _ready() -> void:
 	GlobalNodes.player = self
 
 func _physics_process(delta: float) -> void:
+	if Input.get_axis("left", "right") == 0 and is_on_floor():
+		$SpritesheetAnimation.change_animation(preload("res://Assets/PlayerIdle.png"), 8, 1)
+	if Input.get_axis("left", "right") != 0 and is_on_floor():
+		$SpritesheetAnimation.change_animation(preload("res://Assets/PlayerRun.png"), 8, 1)
+	
 	$WalkParticles.emitting = Input.get_axis("left", "right") != 0 and is_on_floor()
 	if Input.is_action_just_pressed("pick_up_throw"):
 		if holding:
