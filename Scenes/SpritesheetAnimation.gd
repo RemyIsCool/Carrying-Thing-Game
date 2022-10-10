@@ -13,3 +13,9 @@ func change_animation(image: Resource, horizontalf: int, verticalf: int):
 	texture = image
 	hframes = horizontalf
 	vframes = verticalf
+	
+	if hframes == 1 and vframes == 1:
+		$Timer.stop()
+		frame = 0
+	if $Timer.is_stopped():
+		$Timer.start()

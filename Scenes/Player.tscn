@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/PlayerIdle.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=2]
@@ -9,14 +9,7 @@ radius = 6.0
 height = 16.0
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 17, 27 )
-
-[sub_resource type="Gradient" id=6]
-offsets = PoolRealArray( 0.00645161, 0.574194, 0.983871 )
-colors = PoolColorArray( 0.231777, 0.17659, 0.155825, 1, 0.490131, 0.420826, 0.366496, 1, 0.563808, 0.499548, 0.42673, 1 )
-
-[sub_resource type="GradientTexture" id=7]
-gradient = SubResource( 6 )
+extents = Vector2( 16, 20 )
 
 [sub_resource type="Curve" id=4]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
@@ -36,14 +29,7 @@ orbit_velocity_random = 0.0
 scale = 10.0
 scale_random = 1.0
 scale_curve = SubResource( 5 )
-color_ramp = SubResource( 7 )
-
-[sub_resource type="Gradient" id=9]
-offsets = PoolRealArray( 0.00645161, 0.574194, 0.983871 )
-colors = PoolColorArray( 0.231777, 0.17659, 0.155825, 1, 0.490131, 0.420826, 0.366496, 1, 0.563808, 0.499548, 0.42673, 1 )
-
-[sub_resource type="GradientTexture" id=10]
-gradient = SubResource( 9 )
+color = Color( 0.698039, 0.545098, 0.470588, 1 )
 
 [sub_resource type="Curve" id=11]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
@@ -63,12 +49,13 @@ orbit_velocity_random = 0.0
 scale = 5.0
 scale_random = 1.0
 scale_curve = SubResource( 12 )
-color_ramp = SubResource( 10 )
+color = Color( 0.698039, 0.545098, 0.470588, 1 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
 [node name="SpritesheetAnimation" parent="." instance=ExtResource( 3 )]
+modulate = Color( 1.5, 1.5, 1.5, 1 )
 position = Vector2( 0, 16 )
 z_index = 4096
 texture = ExtResource( 1 )
@@ -93,7 +80,7 @@ collision_layer = 32769
 collision_mask = 32769
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BoxDetector"]
-position = Vector2( 0, -10 )
+position = Vector2( 0, -1 )
 shape = SubResource( 2 )
 
 [node name="WalkParticles" type="Particles2D" parent="."]
@@ -106,6 +93,8 @@ local_coords = false
 process_material = SubResource( 8 )
 
 [node name="JumpParticles" type="Particles2D" parent="."]
+position = Vector2( 0, 16 )
+z_index = 4096
 emitting = false
 one_shot = true
 explosiveness = 1.0
