@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 6.0
-height = 16.0
+height = 18.0
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 16, 20 )
@@ -64,7 +64,7 @@ hframes = 8
 interval = 0.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 2 )
+position = Vector2( 0, 3 )
 shape = SubResource( 1 )
 
 [node name="JumpBufferTimer" type="Timer" parent="."]
