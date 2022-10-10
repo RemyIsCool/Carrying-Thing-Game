@@ -44,6 +44,7 @@ shape = SubResource( 1 )
 texture = ExtResource( 2 )
 
 [node name="Box" parent="." instance=ExtResource( 3 )]
+position = Vector2( 93, 200 )
 
 [node name="PinJoint" type="PinJoint2D" parent="."]
 node_b = NodePath("../Box")

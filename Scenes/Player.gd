@@ -5,7 +5,7 @@ export var acceleration := 50
 export var air_acceleration := 40
 export var friction := 200
 export var air_friction := 100
-export var max_speed := 300
+export var max_speed := 200
 export var jump_height := 500
 export var up_gravity := 30
 export var down_gravity := 60
@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 			GlobalNodes.box.apply_central_impulse((Vector2(-1, -1) if left else Vector2(1, -1)) * 300)
 			holding = false
 		elif $BoxDetector.overlaps_body(GlobalNodes.box):
-			GlobalNodes.box.global_transform.origin = position - Vector2(0, 24)
+			GlobalNodes.box.global_transform.origin = position - Vector2(0, 26)
 			holding = true
 	
 	if holding and not $BoxDetector.overlaps_body(GlobalNodes.box):
