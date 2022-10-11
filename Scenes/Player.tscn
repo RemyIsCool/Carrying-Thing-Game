@@ -55,7 +55,6 @@ color = Color( 0.698039, 0.545098, 0.470588, 1 )
 script = ExtResource( 2 )
 
 [node name="SpritesheetAnimation" parent="." instance=ExtResource( 3 )]
-modulate = Color( 1.5, 1.5, 1.5, 1 )
 position = Vector2( 0, 16 )
 z_index = 4096
 texture = ExtResource( 1 )

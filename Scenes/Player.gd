@@ -24,7 +24,10 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if Input.get_axis("left", "right") == 0 and is_on_floor():
-		$SpritesheetAnimation.change_animation(preload("res://Assets/PlayerIdle.png"), 8, 1)
+		if holding:
+			$SpritesheetAnimation.change_animation(preload("res://Assets/IdleBox.png"), 8, 1)
+		else:
+			$SpritesheetAnimation.change_animation(preload("res://Assets/PlayerIdle.png"), 8, 1)
 	if Input.get_axis("left", "right") != 0 and is_on_floor():
 		if holding:
 			$SpritesheetAnimation.change_animation(preload("res://Assets/RunBox.png"), 8, 1)
