@@ -39,15 +39,17 @@ func _physics_process(delta: float) -> void:
 		else:
 			$SpritesheetAnimation.change_animation(preload("res://Assets/PlayerJump.png"), 1, 1)
 	
-	$WalkParticles.emitting = Input.get_axis("left", "right") != 0 and is_on_floor()
+	$WalkParticles.emitting = Input.get_axis("left", "right") != 0 and is_on_floor() and not is_on_wall()
 	if Input.is_action_just_pressed("pick_up_throw"):
 		if holding:
+			GlobalNodes.box.get_node("./Sprite").texture = preload("res://Assets/Box.png")
 			GlobalNodes.box.apply_central_impulse((Vector2(-1, -1) if left else Vector2(1, -1)) * 300)
 			holding = false
 		elif $BoxDetector.overlaps_body(GlobalNodes.box):
 			GlobalNodes.box.global_transform.origin = position
 			holding = true
-
+	
+	GlobalNodes.box.get_node("./Sprite").texture = preload("res://Assets/BoxTouching.png") if $BoxDetector.overlaps_body(GlobalNodes.box) else preload("res://Assets/Box.png")
 	
 	GlobalNodes.joint.node_a = "../Player" if holding else ""
 	

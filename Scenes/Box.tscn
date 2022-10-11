@@ -4,6 +4,7 @@
 [ext_resource path="res://Assets/Box.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 9, 9 )
 
 [node name="Box" type="RigidBody2D"]
 collision_layer = 32768
