@@ -18,6 +18,7 @@ var velocity := Vector2.ZERO
 var left = false
 var was_in_air = false
 var holding = false
+var has_slowed_down = false
 
 func _ready() -> void:
 	GlobalNodes.player = self
@@ -33,7 +34,7 @@ func _physics_process(delta: float) -> void:
 			$SpritesheetAnimation.change_animation(preload("res://Assets/RunBox.png"), 8, 1)
 		else:
 			$SpritesheetAnimation.change_animation(preload("res://Assets/PlayerRun.png"), 8, 1)
-	if !is_on_floor():
+	if not is_on_floor():
 		if holding:
 			$SpritesheetAnimation.change_animation(preload("res://Assets/JumpBox.png"), 1, 1)
 		else:
@@ -45,16 +46,18 @@ func _physics_process(delta: float) -> void:
 			GlobalNodes.box.get_node("./Sprite").texture = preload("res://Assets/Box.png")
 			GlobalNodes.box.apply_central_impulse((Vector2(-1, -1) if left else Vector2(1, -1)) * 300)
 			holding = false
+			has_slowed_down = false
 		elif $BoxDetector.overlaps_body(GlobalNodes.box):
 			GlobalNodes.box.global_transform.origin = position
 			holding = true
 	
-	GlobalNodes.box.get_node("./Sprite").texture = preload("res://Assets/BoxTouching.png") if $BoxDetector.overlaps_body(GlobalNodes.box) else preload("res://Assets/Box.png")
+	GlobalNodes.box.get_node("./Sprite").texture = preload("res://Assets/BoxTouching.png") if $BoxDetector.overlaps_body(GlobalNodes.box) and GlobalNodes.box.is_on_floor() else preload("res://Assets/Box.png")
 	
 	GlobalNodes.joint.node_a = "../Player" if holding else ""
 	
-	if Input.is_action_just_released("pick_up_throw"):
-		GlobalNodes.box.linear_velocity *= variable_throw
+	if Input.is_action_just_released("pick_up_throw") and not has_slowed_down:
+		GlobalNodes.box.linear_velocity.x *= variable_throw
+		has_slowed_down = true
 	
 	if Input.is_action_pressed("left") or Input.is_action_pressed("right"):
 		if velocity.x < -max_speed + 1 or velocity.x > max_speed - 1:
@@ -100,6 +103,8 @@ func _physics_process(delta: float) -> void:
 		if was_in_air:
 			was_in_air = false
 			$SpritesheetAnimation.scale = Vector2(1.3, 0.7)
+			$LandParticles.restart()
+			GlobalNodes.camera.shake(0.1, 1)
 		else:
 			$SpritesheetAnimation.scale = lerp($SpritesheetAnimation.scale, Vector2.ONE, 0.1)
 			
