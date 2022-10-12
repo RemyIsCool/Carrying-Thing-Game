@@ -709,7 +709,7 @@ script = ExtResource( 5 )
 environment = ExtResource( 6 )
 
 [node name="Lantern" type="Sprite" parent="."]
-position = Vector2( 263, 153 )
+position = Vector2( 290, 94 )
 texture = ExtResource( 7 )
 
 [node name="Glow" type="Sprite" parent="Lantern"]

@@ -1,7 +1,7 @@
 extends Camera2D
 
 
-export var lookahead_divisor = 8.5
+export var lookahead_divisor = 8.8
 export var lerp_amount = 0.2
 export var y_change = -25
 

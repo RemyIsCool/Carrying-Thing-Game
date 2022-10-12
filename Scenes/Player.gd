@@ -54,7 +54,7 @@ func _physics_process(delta: float) -> void:
 			holding = true
 	
 	GlobalNodes.box.get_node("./Sprite").texture = preload("res://Assets/BoxTouching.png") if $BoxDetector.overlaps_body(GlobalNodes.box) and GlobalNodes.box.is_on_floor() else preload("res://Assets/Box.png")
-	GlobalNodes.box.get_node("./SpaceText").visible = $BoxDetector.overlaps_body(GlobalNodes.box) and GlobalNodes.box.is_on_floor()
+	GlobalNodes.box.get_node("./SpaceText").visible = $BoxDetector.overlaps_body(GlobalNodes.box) and GlobalNodes.box.is_on_floor() and not holding
 	
 	GlobalNodes.joint.node_a = "../Player" if holding else ""
 	
