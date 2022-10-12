@@ -11,7 +11,7 @@ export var up_gravity := 30
 export var down_gravity := 60
 export var variable_jump := 100
 export var variable_throw := 0.4
-export var holding_multiplier := 0.9
+export var holding_multiplier := 0.95
 
 var velocity := Vector2.ZERO
 
@@ -19,11 +19,13 @@ var left = false
 var was_in_air = false
 var holding = false
 var has_slowed_down = false
+var jumped = false
 
 func _ready() -> void:
 	GlobalNodes.player = self
 
 func _physics_process(delta: float) -> void:
+	# Animations
 	if Input.get_axis("left", "right") == 0 and is_on_floor():
 		if holding:
 			$SpritesheetAnimation.change_animation(preload("res://Assets/IdleBox.png"), 8, 1)
@@ -40,7 +42,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			$SpritesheetAnimation.change_animation(preload("res://Assets/PlayerJump.png"), 1, 1)
 	
-	$WalkParticles.emitting = Input.get_axis("left", "right") != 0 and is_on_floor() and not is_on_wall()
+	# Picking up and throwing
 	if Input.is_action_just_pressed("pick_up_throw"):
 		if holding:
 			GlobalNodes.box.get_node("./Sprite").texture = preload("res://Assets/Box.png")
@@ -59,6 +61,7 @@ func _physics_process(delta: float) -> void:
 		GlobalNodes.box.linear_velocity.x *= variable_throw
 		has_slowed_down = true
 	
+	# Horizontal movement
 	if Input.is_action_pressed("left") or Input.is_action_pressed("right"):
 		if velocity.x < -max_speed + 1 or velocity.x > max_speed - 1:
 			velocity.x = max_speed * Input.get_axis("left", "right")
@@ -73,6 +76,15 @@ func _physics_process(delta: float) -> void:
 	
 	velocity.x = clamp(velocity.x, -max_speed * (holding_multiplier if holding else 1), max_speed * (holding_multiplier if holding else 1))
 	
+	if Input.is_action_pressed("left"):
+		left = true
+	if Input.is_action_pressed("right"):
+		left = false
+	
+	$SpritesheetAnimation.flip_h = left	
+	
+	
+	# Vertical movement
 	velocity.y += down_gravity if velocity.y > 0 else up_gravity
 	
 	if is_on_floor():
@@ -85,19 +97,21 @@ func _physics_process(delta: float) -> void:
 		velocity.y = -(jump_height * (holding_multiplier if holding else 1))
 		$CoyoteTimer.stop()
 		$JumpBufferTimer.stop()
-		$JumpParticles.restart()
+		jumped = true
 	
 	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y += variable_jump
 	
+	# Actually moving the player
+	
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
-	if Input.is_action_pressed("left"):
-		left = true
-	if Input.is_action_pressed("right"):
-		left = false
+	# Visual effects
+	$WalkParticles.emitting = Input.get_axis("left", "right") != 0 and is_on_floor() and not is_on_wall()	
 	
-	$SpritesheetAnimation.flip_h = left
+	if jumped:
+		$JumpParticles.restart()
+		jumped = false
 	
 	if is_on_floor():
 		if was_in_air:
