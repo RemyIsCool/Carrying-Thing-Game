@@ -10,7 +10,7 @@ export var jump_height := 500
 export var up_gravity := 30
 export var down_gravity := 60
 export var variable_jump := 100
-export var variable_throw := 0.4
+export var variable_throw := 0.3
 export var holding_multiplier := 0.95
 
 var velocity := Vector2.ZERO
