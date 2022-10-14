@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/Box.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Box.png" type="Texture" id=2]
 [ext_resource path="res://Assets/SpaceText.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Particle.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 9, 9 )
@@ -11,7 +12,7 @@ extents = Vector2( 9, 9 )
 extents = Vector2( 7, 0.5 )
 
 [sub_resource type="Curve" id=13]
-_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+_data = [ Vector2( 0, 0.504505 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=12]
 curve = SubResource( 13 )
@@ -25,10 +26,7 @@ initial_velocity = 84.16
 initial_velocity_random = 0.28
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-scale = 5.0
-scale_random = 1.0
 scale_curve = SubResource( 12 )
-color = Color( 0.698039, 0.545098, 0.470588, 1 )
 
 [node name="Box" type="RigidBody2D"]
 collision_layer = 32768
@@ -61,6 +59,7 @@ one_shot = true
 explosiveness = 1.0
 local_coords = false
 process_material = SubResource( 14 )
+texture = ExtResource( 4 )
 
 [node name="SpaceText" type="Sprite" parent="."]
 visible = false

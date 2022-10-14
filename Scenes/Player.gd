@@ -46,6 +46,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("pick_up_throw"):
 		if holding:
 			GlobalNodes.box.get_node("./Sprite").texture = preload("res://Assets/Box.png")
+			GlobalNodes.box.linear_velocity = Vector2.ZERO
 			GlobalNodes.box.apply_central_impulse((Vector2(-1, -1) if left else Vector2(1, -1)) * 300)
 			holding = false
 			has_slowed_down = false
