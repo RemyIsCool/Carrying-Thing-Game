@@ -1,5 +1,5 @@
-# From Metal to Timber
-A game where you carry stuff
+# Nine Lives
+A game where you are trying to deliver a package to a creepy old cat lady
 
 NOTE: This is just a work in progress.
 
