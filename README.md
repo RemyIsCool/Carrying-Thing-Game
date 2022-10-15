@@ -1,5 +1,4 @@
-# Nine Lives
-##### A game about delivering a package
+# Nine Lives - A game about delivering a package
 
 NOTE: This is just a work in progress.
 
