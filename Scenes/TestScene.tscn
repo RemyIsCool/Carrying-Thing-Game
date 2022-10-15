@@ -42,7 +42,7 @@ scale = Vector2( 0.195313, 0.195313 )
 z_index = -1
 texture = ExtResource( 2 )
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="." groups=["platform"]]
 tile_set = ExtResource( 8 )
 cell_size = Vector2( 16, 16 )
 collision_layer = 32777

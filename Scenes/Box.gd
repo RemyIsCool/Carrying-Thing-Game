@@ -16,4 +16,7 @@ func _physics_process(delta: float) -> void:
 	$Sprite.visible = not GlobalNodes.player.holding
 
 func is_on_floor() -> bool:
-	return $GroundDetector.overlaps_body(GlobalNodes.tilemap)
+	for body in $GroundDetector.get_overlapping_bodies():
+		if body.is_in_group("platform"):
+			return true
+	return false
