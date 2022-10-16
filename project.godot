@@ -35,10 +35,18 @@ version_control_plugin_name="GitAPI"
 [global]
 
 gravity=false
+cursor=false
 
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[importer_defaults]
+
+texture={
+"detect_3d": false,
+"flags/filter": false
+}
 
 [input]
 

@@ -6,7 +6,12 @@ export var speed := 50
 
 var velocity := Vector2(speed, 0)
 
+var dead := false
+
 func _physics_process(delta: float) -> void:
+	if dead:
+		$Polygon2D.visible = false
+		return
 	velocity.y += gravity
 	
 	if is_on_wall():
@@ -19,4 +24,6 @@ func _physics_process(delta: float) -> void:
 	
 	if $CollisionDetection.overlaps_body(GlobalNodes.box) and not GlobalNodes.box.is_on_floor() and not GlobalNodes.player.holding:
 		GlobalNodes.box.apply_central_impulse(Vector2(0, -500))
-		queue_free()
+		dead = true
+		$DeathParticles.restart()
+		GlobalNodes.camera.shake(0.1, 2)
