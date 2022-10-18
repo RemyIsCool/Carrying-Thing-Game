@@ -17,6 +17,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GlobalNodes="*res://Scenes/GlobalNodes.gd"
+SceneLoader="*res://Scenes/SceneLoader.tscn"
 
 [display]
 

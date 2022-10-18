@@ -20,11 +20,15 @@ var was_in_air = false
 var holding = false
 var has_slowed_down = false
 var jumped = false
+var dead = false
 
 func _ready() -> void:
 	GlobalNodes.player = self
 
 func _physics_process(delta: float) -> void:
+	if dead:
+		return
+	
 	# Animations
 	if Input.get_axis("left", "right") == 0 and is_on_floor():
 		if holding:
@@ -129,4 +133,11 @@ func _physics_process(delta: float) -> void:
 		else:
 			was_in_air = true
 			$SpritesheetAnimation.scale = Vector2(0.7, 1.3)
-	
+
+func die() -> void:
+	if not dead:
+		dead = true
+		SceneLoader.change_scene("res://Scenes/TestScene.tscn")
+		$SpritesheetAnimation.change_animation(preload("res://Assets/PlayerIdle.png"), 8, 1)
+		$SpritesheetAnimation.rotation_degrees = -90
+		GlobalNodes.camera.shake(0.2, 4)

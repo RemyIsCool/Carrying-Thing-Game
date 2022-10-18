@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Assets/PlayerIdle.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/SpritesheetAnimation.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/Particle.png" type="Texture" id=4]
+[ext_resource path="res://Assets/FloorParticle.png" type="Texture" id=4]
+[ext_resource path="res://Assets/DeathParticle.png" type="Texture" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 6.0
@@ -12,11 +13,11 @@ height = 18.0
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 9, 18 )
 
-[sub_resource type="Curve" id=4]
-_data = [ Vector2( 0, 0.506915 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=5]
-curve = SubResource( 4 )
+[sub_resource type="CanvasItemMaterial" id=16]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="ParticlesMaterial" id=8]
 flag_disable_z = true
@@ -25,35 +26,63 @@ spread = 0.0
 gravity = Vector3( 0, 0, 0 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-scale_curve = SubResource( 5 )
+anim_speed = 1.5
 
-[sub_resource type="Curve" id=11]
-_data = [ Vector2( 0, 0.514572 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+[sub_resource type="CanvasItemMaterial" id=17]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id=19]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=14]
-curve = SubResource( 11 )
+curve = SubResource( 19 )
 
 [sub_resource type="ParticlesMaterial" id=13]
 flag_disable_z = true
 direction = Vector3( 0, 1, 0 )
 spread = 90.0
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 80.0
+initial_velocity = 40.0
 initial_velocity_random = 0.28
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale_curve = SubResource( 14 )
+anim_speed = 1.0
+
+[sub_resource type="CanvasItemMaterial" id=18]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="ParticlesMaterial" id=15]
 flag_disable_z = true
 direction = Vector3( 0, -1, 0 )
 spread = 90.0
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 80.0
+initial_velocity = 40.0
 initial_velocity_random = 0.28
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-scale_curve = SubResource( 14 )
+anim_speed = 1.0
+
+[sub_resource type="CanvasItemMaterial" id=21]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=20]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 200.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+anim_speed = 1.0
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -86,8 +115,9 @@ collision_mask = 32769
 shape = SubResource( 2 )
 
 [node name="WalkParticles" type="Particles2D" parent="."]
+material = SubResource( 16 )
 position = Vector2( 0, 16 )
-z_index = 4096
+z_index = 10
 emitting = false
 amount = 4
 lifetime = 0.5
@@ -96,9 +126,11 @@ process_material = SubResource( 8 )
 texture = ExtResource( 4 )
 
 [node name="JumpParticles" type="Particles2D" parent="."]
+material = SubResource( 17 )
 position = Vector2( 0, 16 )
 z_index = 4096
 emitting = false
+amount = 4
 one_shot = true
 explosiveness = 1.0
 local_coords = false
@@ -106,11 +138,24 @@ process_material = SubResource( 13 )
 texture = ExtResource( 4 )
 
 [node name="LandParticles" type="Particles2D" parent="."]
+material = SubResource( 18 )
 position = Vector2( 0, 24 )
 z_index = 4096
 emitting = false
+amount = 4
 one_shot = true
 explosiveness = 1.0
 local_coords = false
 process_material = SubResource( 15 )
 texture = ExtResource( 4 )
+
+[node name="DeathParticles" type="Particles2D" parent="."]
+material = SubResource( 21 )
+z_index = 4096
+emitting = false
+amount = 19
+one_shot = true
+explosiveness = 0.8
+local_coords = false
+process_material = SubResource( 20 )
+texture = ExtResource( 5 )

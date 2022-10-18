@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/Cat.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Particle.png" type="Texture" id=2]
+[ext_resource path="res://Assets/DeathParticle.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7, 7 )
@@ -9,20 +9,20 @@ extents = Vector2( 7, 7 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 8 )
 
-[sub_resource type="Curve" id=4]
-_data = [ Vector2( 0, 0.522523 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=5]
-curve = SubResource( 4 )
+[sub_resource type="CanvasItemMaterial" id=6]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="ParticlesMaterial" id=3]
 flag_disable_z = true
 spread = 180.0
-initial_velocity = 183.16
+initial_velocity = 50.0
 initial_velocity_random = 0.29
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-scale_curve = SubResource( 5 )
+anim_speed = 1.0
 
 [node name="Cat" type="KinematicBody2D"]
 collision_layer = 8
@@ -43,9 +43,18 @@ collision_mask = 32769
 shape = SubResource( 2 )
 
 [node name="DeathParticles" type="Particles2D" parent="."]
+material = SubResource( 6 )
 emitting = false
 amount = 10
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource( 3 )
 texture = ExtResource( 2 )
+
+[node name="DeathTimer" type="Timer" parent="."]
+
+[node name="BoxBufferTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
