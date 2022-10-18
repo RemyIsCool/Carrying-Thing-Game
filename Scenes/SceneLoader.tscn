@@ -51,6 +51,7 @@ tracks/0/keys = {
 script = ExtResource( 1 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="CanvasLayer"]
 copy_mode = 2

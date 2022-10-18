@@ -139,5 +139,5 @@ func die() -> void:
 		dead = true
 		SceneLoader.change_scene("res://Scenes/TestScene.tscn")
 		$SpritesheetAnimation.change_animation(preload("res://Assets/PlayerIdle.png"), 8, 1)
-		$SpritesheetAnimation.rotation_degrees = -90
+		$SpritesheetAnimation.scale = Vector2.ONE
 		GlobalNodes.camera.shake(0.2, 4)

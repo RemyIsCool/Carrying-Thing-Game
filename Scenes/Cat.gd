@@ -8,7 +8,7 @@ var velocity := Vector2(speed, 0)
 
 func _physics_process(delta: float) -> void:
 	if $DeathTimer.time_left > 0:
-		$Polygon2D.visible = false
+		$SpritesheetAnimation.visible = false
 		return
 	
 	velocity.y += gravity
@@ -16,12 +16,14 @@ func _physics_process(delta: float) -> void:
 	if is_on_wall():
 		velocity.x *= -1
 	
+	$SpritesheetAnimation.flip_h = velocity.x <= 0
+	
 	velocity.y = move_and_slide(velocity, Vector2.UP).y
 	
 	if not GlobalNodes.box.is_on_floor():
 		$BoxBufferTimer.start()
 	
-	if $CollisionDetection.overlaps_body(GlobalNodes.player):
+	if $CollisionDetection.overlaps_body(GlobalNodes.player) and not $DeathTimer.time_left > 0:
 		GlobalNodes.player.die()
 		
 	if $CollisionDetection.overlaps_body(GlobalNodes.box) and $BoxBufferTimer.time_left > 0 and not GlobalNodes.player.holding:
@@ -30,7 +32,6 @@ func _physics_process(delta: float) -> void:
 		$DeathTimer.start()
 		$DeathParticles.restart()
 		GlobalNodes.camera.shake(0.1, 2)
-	
 
 func _on_DeathTimer_timeout() -> void:
 	queue_free()

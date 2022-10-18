@@ -13,8 +13,9 @@ func _ready() -> void:
 	GlobalNodes.camera = self
 
 func _physics_process(delta: float) -> void:
-	position.x = lerp(position.x, GlobalNodes.player.position.x + GlobalNodes.player.velocity.x / lookahead_divisor, lerp_amount)
-	position.y = lerp(position.y, GlobalNodes.player.position.y + y_change, lerp_amount / 2)
+	if not GlobalNodes.player.dead:
+		position.x = lerp(position.x, GlobalNodes.player.position.x + GlobalNodes.player.velocity.x / lookahead_divisor, lerp_amount)
+		position.y = lerp(position.y, GlobalNodes.player.position.y + y_change, lerp_amount / 2)
 	
 	if shaking:
 		position += Vector2((randf() - 0.5) * amount * 2, (randf() - 0.5) * amount * 2)
