@@ -111,11 +111,18 @@ func _physics_process(delta: float) -> void:
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
-	# Visual effects
+	# Visual and sound effects
 	$WalkParticles.emitting = Input.get_axis("left", "right") != 0 and is_on_floor() and not is_on_wall()	
+	
+	if Input.is_action_just_pressed("pick_up_throw"):
+		if holding:
+			$PickupPlayer.play()
+		elif $BoxDetector.overlaps_body(GlobalNodes.box):
+			$ThrowPlayer.play()
 	
 	if jumped:
 		$JumpParticles.restart()
+		$JumpPlayer.play()
 		jumped = false
 	
 	if is_on_floor():
@@ -123,6 +130,7 @@ func _physics_process(delta: float) -> void:
 			was_in_air = false
 			$SpritesheetAnimation.scale = Vector2(1.3, 0.7)
 			$LandParticles.restart()
+			$LandPlayer.play()
 			GlobalNodes.camera.shake(0.1, 1)
 		else:
 			$SpritesheetAnimation.scale = lerp($SpritesheetAnimation.scale, Vector2.ONE, 0.1)
@@ -140,4 +148,5 @@ func die() -> void:
 		SceneLoader.change_scene("res://Scenes/TestScene.tscn")
 		$SpritesheetAnimation.change_animation(preload("res://Assets/PlayerIdle.png"), 8, 1)
 		$SpritesheetAnimation.scale = Vector2.ONE
+		$DeathPlayer.play()
 		GlobalNodes.camera.shake(0.2, 4)
