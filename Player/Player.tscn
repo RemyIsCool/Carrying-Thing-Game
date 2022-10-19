@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Player/Art/PlayerIdle.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -79,7 +79,7 @@ particles_anim_loop = false
 flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 200.0
+initial_velocity = 50.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 anim_speed = 1.0

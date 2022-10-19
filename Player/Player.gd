@@ -26,30 +26,26 @@ func _ready() -> void:
 	GlobalNodes.player = self
 
 func _physics_process(delta: float) -> void:
-	if dead:
-		return
-	
 	# Animations
 	if Input.get_axis("left", "right") == 0 and is_on_floor():
 		if holding:
-			$SpritesheetAnimation.change_animation(preload("res://Assets/IdleBox.png"), 8, 1)
+			$SpritesheetAnimation.change_animation(preload("res://Player/Art/IdleBox.png"), 8, 1)
 		else:
-			$SpritesheetAnimation.change_animation(preload("res://Assets/PlayerIdle.png"), 8, 1)
+			$SpritesheetAnimation.change_animation(preload("res://Player/Art/PlayerIdle.png"), 8, 1)
 	if Input.get_axis("left", "right") != 0 and is_on_floor():
 		if holding:
-			$SpritesheetAnimation.change_animation(preload("res://Assets/RunBox.png"), 8, 1)
+			$SpritesheetAnimation.change_animation(preload("res://Player/Art/RunBox.png"), 8, 1)
 		else:
-			$SpritesheetAnimation.change_animation(preload("res://Assets/PlayerRun.png"), 8, 1)
+			$SpritesheetAnimation.change_animation(preload("res://Player/Art/PlayerRun.png"), 8, 1)
 	if not is_on_floor():
 		if holding:
-			$SpritesheetAnimation.change_animation(preload("res://Assets/JumpBox.png"), 1, 1)
+			$SpritesheetAnimation.change_animation(preload("res://Player/Art/JumpBox.png"), 1, 1)
 		else:
-			$SpritesheetAnimation.change_animation(preload("res://Assets/PlayerJump.png"), 1, 1)
+			$SpritesheetAnimation.change_animation(preload("res://Player/Art/PlayerJump.png"), 1, 1)
 	
 	# Picking up and throwing
 	if Input.is_action_just_pressed("pick_up_throw"):
 		if holding:
-			GlobalNodes.box.get_node("./Sprite").texture = preload("res://Assets/Box.png")
 			GlobalNodes.box.linear_velocity = Vector2.ZERO
 			GlobalNodes.box.apply_central_impulse((Vector2(-1, -1) if left else Vector2(1, -1)) * 300)
 			holding = false
@@ -58,7 +54,7 @@ func _physics_process(delta: float) -> void:
 			GlobalNodes.box.global_transform.origin = position
 			holding = true
 	
-	GlobalNodes.box.get_node("./Sprite").texture = preload("res://Assets/BoxTouching.png") if $BoxDetector.overlaps_body(GlobalNodes.box) and GlobalNodes.box.is_on_floor() else preload("res://Assets/Box.png")
+	GlobalNodes.box.get_node("./Sprite").texture = preload("res://Box/Art/BoxTouching.png") if $BoxDetector.overlaps_body(GlobalNodes.box) and GlobalNodes.box.is_on_floor() else preload("res://Box/Art/Box.png")
 	
 	GlobalNodes.joint.node_a = "../Player" if holding else ""
 	
@@ -109,20 +105,13 @@ func _physics_process(delta: float) -> void:
 	
 	# Actually moving the player
 	
-	velocity = move_and_slide(velocity, Vector2.UP)
+	velocity = move_and_slide(Vector2(0, velocity.y) if dead else velocity, Vector2.UP)
 	
-	# Visual and sound effects
-	$WalkParticles.emitting = Input.get_axis("left", "right") != 0 and is_on_floor() and not is_on_wall()	
-	
-	if Input.is_action_just_pressed("pick_up_throw"):
-		if holding:
-			$PickupPlayer.play()
-		elif $BoxDetector.overlaps_body(GlobalNodes.box):
-			$ThrowPlayer.play()
+	# Visual effects
+	$WalkParticles.emitting = Input.get_axis("left", "right") != 0 and is_on_floor() and not is_on_wall()
 	
 	if jumped:
 		$JumpParticles.restart()
-		$JumpPlayer.play()
 		jumped = false
 	
 	if is_on_floor():
@@ -130,7 +119,6 @@ func _physics_process(delta: float) -> void:
 			was_in_air = false
 			$SpritesheetAnimation.scale = Vector2(1.3, 0.7)
 			$LandParticles.restart()
-			$LandPlayer.play()
 			GlobalNodes.camera.shake(0.1, 1)
 		else:
 			$SpritesheetAnimation.scale = lerp($SpritesheetAnimation.scale, Vector2.ONE, 0.1)
@@ -145,8 +133,8 @@ func _physics_process(delta: float) -> void:
 func die() -> void:
 	if not dead:
 		dead = true
-		SceneLoader.change_scene("res://Scenes/TestScene.tscn")
-		$SpritesheetAnimation.change_animation(preload("res://Assets/PlayerIdle.png"), 8, 1)
+		SceneLoader.change_scene("res://Levels/TestScene.tscn")
+		$SpritesheetAnimation.change_animation(preload("res://Player/Art/PlayerIdle.png"), 8, 1)
 		$SpritesheetAnimation.scale = Vector2.ONE
-		$DeathPlayer.play()
+		$DeathParticles.restart()
 		GlobalNodes.camera.shake(0.2, 4)

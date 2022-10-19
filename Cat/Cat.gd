@@ -38,6 +38,5 @@ func _physics_process(delta: float) -> void:
 		GlobalNodes.box.apply_central_impulse(Vector2(0, -200))
 		$SpritesheetAnimation.change_animation(dead_texture, 1, 1)
 		$SpritesheetAnimation.position.y += 4
-		$DeathPlayer.play()
 		$AnimationPlayer.play("die")
 		GlobalNodes.camera.shake(0.1, 2)
