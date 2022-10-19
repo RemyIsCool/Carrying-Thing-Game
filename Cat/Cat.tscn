@@ -1,0 +1,155 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Cat/Cat.gd" type="Script" id=1]
+[ext_resource path="res://Levels/Art/DeathParticle.png" type="Texture" id=2]
+[ext_resource path="res://Levels/Art/FloorParticle.png" type="Texture" id=3]
+[ext_resource path="res://Other/SpritesheetAnimation.tscn" type="PackedScene" id=4]
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 10.5, 8.5 )
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 7.00001
+height = 7.99997
+
+[sub_resource type="CanvasItemMaterial" id=6]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=3]
+flag_disable_z = true
+spread = 180.0
+initial_velocity = 50.0
+initial_velocity_random = 0.29
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+anim_speed = 1.0
+
+[sub_resource type="Animation" id=9]
+resource_name = "die"
+length = 5.0
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpritesheetAnimation:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.125, 0.225, 0.325, 0.425, 0.55, 0.625, 0.675, 0.725, 0.75, 0.775, 0.8, 0.825, 0.85, 0.875, 0.9, 0.925, 0.95, 0.975, 1, 1.025, 1.05, 1.075, 1.1, 1.125, 1.15, 1.175, 1.2, 1.225, 1.25, 1.275, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("DissapearParticles")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "restart"
+} ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("DeathParticles")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "restart"
+} ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 5.05 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[sub_resource type="CanvasItemMaterial" id=11]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=10]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+anim_speed = 1.0
+
+[node name="Cat" type="KinematicBody2D"]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource( 1 )
+
+[node name="SpritesheetAnimation" parent="." instance=ExtResource( 4 )]
+z_index = 53
+hframes = 7
+interval = 0.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.5, 1.5 )
+shape = SubResource( 7 )
+
+[node name="CollisionDetection" type="Area2D" parent="."]
+collision_layer = 32769
+collision_mask = 32769
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionDetection"]
+position = Vector2( 0, 3 )
+rotation = 1.57079
+shape = SubResource( 8 )
+
+[node name="DeathParticles" type="Particles2D" parent="."]
+material = SubResource( 6 )
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 3 )
+texture = ExtResource( 2 )
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="BoxBufferTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 0.5
+anims/die = SubResource( 9 )
+
+[node name="DissapearParticles" type="Particles2D" parent="."]
+material = SubResource( 11 )
+emitting = false
+one_shot = true
+explosiveness = 0.87
+process_material = SubResource( 10 )
+texture = ExtResource( 3 )
+
+[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
