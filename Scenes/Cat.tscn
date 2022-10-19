@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/Cat.gd" type="Script" id=1]
 [ext_resource path="res://Assets/DeathParticle.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Cat7.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/SpritesheetAnimation.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/CatDeath7.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 10.5, 8.5 )
@@ -27,12 +28,31 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 anim_speed = 1.0
 
+[sub_resource type="Animation" id=9]
+resource_name = "flash"
+length = 1.3
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpritesheetAnimation:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.125, 0.225, 0.325, 0.425, 0.55, 0.625, 0.675, 0.725, 0.75, 0.775, 0.8, 0.825, 0.85, 0.875, 0.9, 0.925, 0.95, 0.975, 1, 1.025, 1.05, 1.075, 1.1, 1.125, 1.15, 1.175, 1.2, 1.225, 1.25, 1.275, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false ]
+}
+
 [node name="Cat" type="KinematicBody2D"]
 collision_layer = 8
 collision_mask = 8
 script = ExtResource( 1 )
+dead_texture = ExtResource( 5 )
 
 [node name="SpritesheetAnimation" parent="." instance=ExtResource( 4 )]
+z_index = 53
 texture = ExtResource( 3 )
 hframes = 7
 interval = 0.1
@@ -60,9 +80,14 @@ process_material = SubResource( 3 )
 texture = ExtResource( 2 )
 
 [node name="DeathTimer" type="Timer" parent="."]
+wait_time = 2.6
 
 [node name="BoxBufferTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 0.5
+anims/flash = SubResource( 9 )
 
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]

@@ -3,12 +3,12 @@ extends KinematicBody2D
 
 export var gravity := 40
 export var speed := 50
+export var dead_texture: Texture
 
 var velocity := Vector2(speed, 0)
 
 func _physics_process(delta: float) -> void:
 	if $DeathTimer.time_left > 0:
-		$SpritesheetAnimation.visible = false
 		return
 	
 	velocity.y += gravity
@@ -31,6 +31,9 @@ func _physics_process(delta: float) -> void:
 		GlobalNodes.box.apply_central_impulse(Vector2(0, -200))
 		$DeathTimer.start()
 		$DeathParticles.restart()
+		$SpritesheetAnimation.change_animation(dead_texture, 1, 1)
+		$SpritesheetAnimation.position.y += 4
+		$AnimationPlayer.play("flash")
 		GlobalNodes.camera.shake(0.1, 2)
 
 func _on_DeathTimer_timeout() -> void:

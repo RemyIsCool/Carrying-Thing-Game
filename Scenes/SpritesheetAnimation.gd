@@ -9,7 +9,7 @@ func _ready() -> void:
 func _on_Timer_timeout() -> void:
 	frame = (frame + 1) % (hframes * vframes)
 
-func change_animation(image: Resource, horizontalf: int, verticalf: int):
+func change_animation(image: Texture, horizontalf: int, verticalf: int):
 	texture = image
 	hframes = horizontalf
 	vframes = verticalf
