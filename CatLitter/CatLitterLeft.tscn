@@ -4,8 +4,8 @@
 [ext_resource path="res://DeathTrigger/DeathTrigger.tscn" type="PackedScene" id=2]
 
 [node name="CatLitterLeft" type="StaticBody2D" groups=["platform"]]
-collision_layer = 32776
-collision_mask = 32776
+collision_layer = 8
+collision_mask = 8
 
 [node name="Sprite" type="Sprite" parent="."]
 z_index = 100

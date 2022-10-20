@@ -17,7 +17,3 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 		$AnimationPlayer.play("zoom_out")
 	elif anim_name == "zoom_out":
 		$CanvasLayer.visible = false
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("restart"):
-		change_scene(get_tree().current_scene.filename)
