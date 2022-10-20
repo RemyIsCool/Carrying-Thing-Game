@@ -26,6 +26,17 @@ func _ready() -> void:
 	GlobalNodes.player = self
 
 func _physics_process(delta: float) -> void:
+	# Skip the rest if the player is dead
+	if dead:
+		if holding:
+			$SpritesheetAnimation.change_animation(preload("res://Player/Art/IdleBox.png"), 8, 1)
+		else:
+			$SpritesheetAnimation.change_animation(preload("res://Player/Art/PlayerIdle.png"), 8, 1)
+		
+		velocity.y += down_gravity if velocity.y > 0 else up_gravity
+		move_and_slide(Vector2(0, velocity.y))
+		return
+	
 	# Animations
 	if Input.get_axis("left", "right") == 0 and is_on_floor():
 		if holding:
@@ -105,7 +116,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Actually moving the player
 	
-	velocity = move_and_slide(Vector2(0, velocity.y) if dead else velocity, Vector2.UP)
+	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	# Visual effects
 	$WalkParticles.emitting = Input.get_axis("left", "right") != 0 and is_on_floor() and not is_on_wall()
@@ -136,5 +147,4 @@ func die() -> void:
 		SceneLoader.change_scene("res://Levels/TestScene.tscn")
 		$SpritesheetAnimation.change_animation(preload("res://Player/Art/PlayerIdle.png"), 8, 1)
 		$SpritesheetAnimation.scale = Vector2.ONE
-		$DeathParticles.restart()
 		GlobalNodes.camera.shake(0.2, 4)

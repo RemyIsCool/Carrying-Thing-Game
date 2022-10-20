@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/CatLitterBoxRight.png-e7cd0c727b555c46439b76abb7d8bc78.stex"
+path="res://.import/CatLitterBoxMiddle.png-170ff442d7f338c4fd391f256447d4a0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Levels/Art/CatLitterBoxRight.png"
-dest_files=[ "res://.import/CatLitterBoxRight.png-e7cd0c727b555c46439b76abb7d8bc78.stex" ]
+source_file="res://CatLitter/Art/CatLitterBoxMiddle.png"
+dest_files=[ "res://.import/CatLitterBoxMiddle.png-170ff442d7f338c4fd391f256447d4a0.stex" ]
 
 [params]
 
