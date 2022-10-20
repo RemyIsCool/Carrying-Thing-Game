@@ -6,7 +6,7 @@ var scene: String
 func change_scene(scene_path: String) -> void:
 	$CanvasLayer.visible = true
 	$AnimationPlayer.play("zoom_in")
-	$CanvasLayer/BackBufferCopy/Mask.position = Vector2(240.526, 135) + (GlobalNodes.player.position - GlobalNodes.camera.position)
+	$CanvasLayer/BackBufferCopy/Mask.position = (Vector2(240.526, 135) + (GlobalNodes.player.position - GlobalNodes.camera.position)) if GlobalNodes.player else Vector2(240.526, 135)
 	scene = scene_path
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
@@ -17,3 +17,7 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 		$AnimationPlayer.play("zoom_out")
 	elif anim_name == "zoom_out":
 		$CanvasLayer.visible = false
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("restart"):
+		change_scene(get_tree().current_scene.filename)
