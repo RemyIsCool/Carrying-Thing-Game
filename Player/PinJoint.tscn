@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Other/PinJoint.gd" type="Script" id=1]
+
+[node name="PinJoint" type="PinJoint2D"]
+node_b = NodePath("../Box")
+script = ExtResource( 1 )
