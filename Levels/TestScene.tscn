@@ -753,9 +753,6 @@ scale = Vector2( 138.426, 10.7972 )
 [node name="CatLitterLeft" parent="." instance=ExtResource( 14 )]
 position = Vector2( 754, 140 )
 
-[node name="FallingPlatformLeft" parent="CatLitterLeft" instance=ExtResource( 17 )]
-position = Vector2( 4, -37 )
-
 [node name="CatLitterMiddle" parent="." instance=ExtResource( 15 )]
 position = Vector2( 762, 140 )
 
@@ -773,3 +770,6 @@ position = Vector2( 794, 140 )
 
 [node name="CatLitterRight" parent="." instance=ExtResource( 16 )]
 position = Vector2( 802, 140 )
+
+[node name="FallingPlatformLeft" parent="." instance=ExtResource( 17 )]
+position = Vector2( 758, 103 )
