@@ -5,6 +5,7 @@ export var gravity := 40
 export var speed := 50
 export var texture: Texture
 export var dead_texture: Texture
+export var left := false
 
 var velocity := Vector2(speed, 0)
 
@@ -12,10 +13,14 @@ var dead := false
 
 func _ready() -> void:
 	$SpritesheetAnimation.texture = texture
+	
+	if left:
+		velocity.x *= -1
 
 func _physics_process(delta: float) -> void:
 	if dead:
 		return
+
 	
 	velocity.y += gravity
 	
