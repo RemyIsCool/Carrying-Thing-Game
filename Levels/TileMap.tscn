@@ -284,7 +284,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 1/z_index = 0
 
-[node name="TileMap" type="TileMap"]
+[node name="TileMap" type="TileMap" groups=["platform"]]
 tile_set = SubResource( 1 )
 cell_size = Vector2( 16, 16 )
 collision_layer = 32777
