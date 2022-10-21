@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Levels/Art/FallingPlatform.png" type="Texture" id=1]
 [ext_resource path="res://FallingPlatform/FallingPlatform.gd" type="Script" id=2]
-[ext_resource path="res://Levels/Art/FloorParticle.png" type="Texture" id=3]
+[ext_resource path="res://Levels/Art/WhiteParticle.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 8 )
