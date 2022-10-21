@@ -7,7 +7,7 @@ export var texture: Texture
 export var dead_texture: Texture
 export var left := false
 
-var velocity := Vector2(speed, 0)
+onready var velocity := Vector2(speed, 0)
 
 var dead := false
 
@@ -40,10 +40,13 @@ func _physics_process(delta: float) -> void:
 		GlobalNodes.player.die()
 		
 	if $CollisionDetection.overlaps_body(GlobalNodes.box) and $BoxBufferTimer.time_left > 0 and not GlobalNodes.player.holding:
-		dead = true
-		GlobalNodes.box.linear_velocity.y = 0
-		GlobalNodes.box.apply_central_impulse(Vector2(0, -200))
-		$SpritesheetAnimation.change_animation(dead_texture, 1, 1)
-		$SpritesheetAnimation.position.y += 4
-		$AnimationPlayer.play("die")
-		GlobalNodes.camera.shake(0.1, 2)
+		die()
+	
+func die() -> void:
+	dead = true
+	GlobalNodes.box.linear_velocity.y = 0
+	GlobalNodes.box.apply_central_impulse(Vector2(0, -200))
+	$SpritesheetAnimation.change_animation(dead_texture, 1, 1)
+	$SpritesheetAnimation.position.y += 4
+	$AnimationPlayer.play("die")
+	GlobalNodes.camera.shake(0.1, 2)
