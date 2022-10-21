@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FloorParticle.png-a44f9200cd313a5f6f6b6bfa12803996.stex"
+path="res://.import/WhiteParticle.png-1f902d39d0b240fb091b8eab3273345a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Levels/Art/FloorParticle.png"
-dest_files=[ "res://.import/FloorParticle.png-a44f9200cd313a5f6f6b6bfa12803996.stex" ]
+source_file="res://Levels/Art/WhiteParticle.png"
+dest_files=[ "res://.import/WhiteParticle.png-1f902d39d0b240fb091b8eab3273345a.stex" ]
 
 [params]
 

@@ -144,7 +144,7 @@ func _physics_process(delta: float) -> void:
 func die() -> void:
 	if not dead:
 		dead = true
-		SceneLoader.change_scene("res://Levels/TestScene.tscn")
+		SceneLoader.change_scene(get_tree().current_scene.filename)
 		$SpritesheetAnimation.change_animation(preload("res://Player/Art/PlayerIdle.png"), 8, 1)
 		$SpritesheetAnimation.scale = Vector2.ONE
 		GlobalNodes.camera.shake(0.2, 4)

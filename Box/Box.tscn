@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Box/Box.gd" type="Script" id=1]
 [ext_resource path="res://Box/Art/Box.png" type="Texture" id=2]
-[ext_resource path="res://Levels/Art/FloorParticle.png" type="Texture" id=4]
+[ext_resource path="res://Levels/Art/WhiteParticle.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 9, 9 )
