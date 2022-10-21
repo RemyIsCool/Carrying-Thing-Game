@@ -17,7 +17,7 @@ var velocity := Vector2.ZERO
 
 var left = false
 var was_in_air = false
-var holding = false
+var holding = true
 var has_slowed_down = false
 var jumped = false
 var dead = false
