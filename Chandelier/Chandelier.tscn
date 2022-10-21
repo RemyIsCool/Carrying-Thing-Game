@@ -1,16 +1,18 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Chandelier/Art/Chandelier.png" type="Texture" id=1]
 [ext_resource path="res://Chandelier/Chandelier.gd" type="Script" id=2]
 [ext_resource path="res://Chandelier/Art/Shard3.png" type="Texture" id=3]
 [ext_resource path="res://Chandelier/Art/Shard2.png" type="Texture" id=4]
 [ext_resource path="res://Chandelier/Art/Shard1.png" type="Texture" id=5]
+[ext_resource path="res://Chandelier/Art/ChandelierBroken.png" type="Texture" id=6]
+[ext_resource path="res://Levels/Art/WhiteParticle.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 11.5, 17 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 39, 405.5 )
+extents = Vector2( 39, 111.25 )
 
 [sub_resource type="CircleShape2D" id=3]
 
@@ -27,7 +29,7 @@ anim_speed = 1.0
 resource_name = "RESET"
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:visible")
+tracks/0/path = NodePath("PlayerKiller/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -36,10 +38,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("PlayerKiller/CollisionShape2D:disabled")
+tracks/1/path = NodePath("PlayerDetector/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -51,7 +53,7 @@ tracks/1/keys = {
 "values": [ false ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("PlayerDetector/CollisionShape2D:disabled")
+tracks/2/path = NodePath("Sprite:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -60,12 +62,25 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ false ]
+"values": [ ExtResource( 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=8]
 resource_name = "crash"
-length = 3.0
+length = 5.0
+step = 0.025
 tracks/0/type = "method"
 tracks/0/path = NodePath("Particles")
 tracks/0/interp = 1
@@ -80,34 +95,36 @@ tracks/0/keys = {
 "method": "restart"
 } ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:visible")
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 3 ),
+"times": PoolRealArray( 5.025 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
 "method": "queue_free"
 } ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath("Particles2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "restart"
+} ]
+}
 tracks/3/type = "method"
-tracks/3/path = NodePath("Particles2")
+tracks/3/path = NodePath("Particles3")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -120,8 +137,8 @@ tracks/3/keys = {
 "method": "restart"
 } ]
 }
-tracks/4/type = "method"
-tracks/4/path = NodePath("Particles3")
+tracks/4/type = "value"
+tracks/4/path = NodePath("PlayerDetector/CollisionShape2D:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -129,13 +146,11 @@ tracks/4/enabled = true
 tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "restart"
-} ]
+"update": 1,
+"values": [ true ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("PlayerDetector/CollisionShape2D:disabled")
+tracks/5/path = NodePath("PlayerKiller/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -147,7 +162,7 @@ tracks/5/keys = {
 "values": [ true ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("PlayerKiller/CollisionShape2D:disabled")
+tracks/6/path = NodePath("Sprite:texture")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -156,8 +171,49 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ ExtResource( 6 ) ]
 }
+tracks/7/type = "value"
+tracks/7/path = NodePath("Sprite:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.8, 1.1, 1.4, 1.6, 1.8, 2, 2.1, 2.2, 2.25, 2.3, 2.35, 2.4, 2.45, 2.5, 2.55, 2.6, 2.65, 2.7, 2.75, 2.8, 2.85, 2.9, 2.95 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false ]
+}
+tracks/8/type = "method"
+tracks/8/path = NodePath("PoofParticles")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 2.975 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "restart"
+} ]
+}
+
+[sub_resource type="CanvasItemMaterial" id=10]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=11]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 50.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+anim_speed = 1.0
 
 [node name="Chandelier" type="KinematicBody2D"]
 collision_layer = 8
@@ -175,10 +231,12 @@ shape = SubResource( 5 )
 [node name="PlayerDetector" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
-position = Vector2( 0, 405.5 )
+position = Vector2( 0, 91.75 )
 shape = SubResource( 4 )
 
 [node name="PlayerKiller" type="Area2D" parent="."]
+collision_layer = 32769
+collision_mask = 32769
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerKiller"]
 position = Vector2( 0, 5 )
@@ -211,3 +269,11 @@ texture = ExtResource( 3 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 9 )
 anims/crash = SubResource( 8 )
+
+[node name="PoofParticles" type="Particles2D" parent="."]
+material = SubResource( 10 )
+emitting = false
+one_shot = true
+explosiveness = 0.91
+process_material = SubResource( 11 )
+texture = ExtResource( 7 )

@@ -57,7 +57,7 @@ func _physics_process(delta: float) -> void:
 	# Picking up and throwing
 	if Input.is_action_just_pressed("pick_up_throw"):
 		if holding:
-			GlobalNodes.box.linear_velocity = Vector2.ZERO
+			GlobalNodes.box.linear_velocity.y = 0
 			GlobalNodes.box.apply_central_impulse((Vector2(-1, -1) if left else Vector2(1, -1)) * 300)
 			holding = false
 			has_slowed_down = false
@@ -75,10 +75,9 @@ func _physics_process(delta: float) -> void:
 	
 	# Horizontal movement
 	if Input.is_action_pressed("left") or Input.is_action_pressed("right"):
-		if velocity.x < -max_speed + 1 or velocity.x > max_speed - 1:
-			velocity.x = max_speed * Input.get_axis("left", "right")
-		else:
-			velocity.x += (acceleration if is_on_floor() else air_acceleration) * Input.get_axis("left", "right") * (holding_multiplier if holding else 1)
+		if (velocity.x < 0 and Input.is_action_pressed("right")) or (velocity.x > 0 and Input.is_action_pressed("left")):
+			velocity.x = 0
+		velocity.x += (acceleration if is_on_floor() else air_acceleration) * Input.get_axis("left", "right") * (holding_multiplier if holding else 1)
 	elif velocity.x > friction:
 		velocity.x -= friction if is_on_floor() else air_friction
 	elif velocity.x < -friction:

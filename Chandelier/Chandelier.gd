@@ -11,6 +11,10 @@ func _physics_process(delta: float) -> void:
 	if $PlayerDetector.overlaps_body(GlobalNodes.player):
 		falling = true
 	
+	if $PlayerKiller.overlaps_body(GlobalNodes.box):
+		falling = true
+		GlobalNodes.box.linear_velocity.x = 0
+	
 	if falling:
 		y_velocity += down_gravity
 	

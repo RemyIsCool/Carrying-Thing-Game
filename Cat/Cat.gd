@@ -20,7 +20,9 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if dead:
 		return
-
+	
+	if not $VisibilityNotifier2D.is_on_screen():
+		return
 	
 	velocity.y += gravity
 	
