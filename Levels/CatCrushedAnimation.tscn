@@ -1,0 +1,360 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Chandelier/Art/Chandelier.png" type="Texture" id=1]
+[ext_resource path="res://Levels/Art/WhiteParticle.png" type="Texture" id=2]
+[ext_resource path="res://Chandelier/Art/ChandelierBroken.png" type="Texture" id=3]
+[ext_resource path="res://Chandelier/Art/Shard3.png" type="Texture" id=4]
+[ext_resource path="res://Levels/Art/DeathParticle.png" type="Texture" id=5]
+[ext_resource path="res://Chandelier/Art/Shard2.png" type="Texture" id=6]
+[ext_resource path="res://Chandelier/Art/Shard1.png" type="Texture" id=7]
+[ext_resource path="res://Cat/Art/Cat2.png" type="Texture" id=8]
+[ext_resource path="res://Levels/CatCrushedAnimation.gd" type="Script" id=9]
+[ext_resource path="res://Levels/Art/Glow.png" type="Texture" id=10]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Chandelier:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -67 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Chandelier:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Chandelier:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Cat:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Chandelier:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Chandelier/Sprite:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "crush"
+length = 2.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Chandelier:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 2.37841, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -67 ), Vector2( 0, -5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Chandelier:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 1 ), ExtResource( 3 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Cat:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.1, 1.2, 1.3, 1.4, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.85 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("DissapearParticles")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1.85 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "restart"
+} ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath("DeathParticles")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "restart"
+} ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Chandelier:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.1, 1.2, 1.3, 1.4, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.85 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath("Particles")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "restart"
+} ]
+}
+tracks/7/type = "method"
+tracks/7/path = NodePath("Particles2")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "restart"
+} ]
+}
+tracks/8/type = "method"
+tracks/8/path = NodePath("Particles3")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0.6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "restart"
+} ]
+}
+tracks/9/type = "method"
+tracks/9/path = NodePath("PoofParticles")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "restart"
+} ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Chandelier/Sprite:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="CanvasItemMaterial" id=3]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=4]
+flag_disable_z = true
+spread = 180.0
+initial_velocity = 50.0
+initial_velocity_random = 0.29
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+anim_speed = 1.0
+
+[sub_resource type="CanvasItemMaterial" id=5]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=6]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+anim_speed = 1.0
+
+[sub_resource type="ParticlesMaterial" id=7]
+lifetime_randomness = 0.43
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 50.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+anim_speed = 1.0
+
+[sub_resource type="CanvasItemMaterial" id=8]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=9]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 50.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+anim_speed = 1.0
+
+[node name="CatCrushedAnimation" type="Node2D"]
+script = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 1 )
+anims/crush = SubResource( 2 )
+
+[node name="Cat" type="Sprite" parent="."]
+texture = ExtResource( 8 )
+hframes = 7
+
+[node name="Chandelier" type="Sprite" parent="."]
+position = Vector2( 0, -67 )
+texture = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Chandelier"]
+scale = Vector2( 0.16, 0.16 )
+z_index = -4096
+texture = ExtResource( 10 )
+
+[node name="DeathParticles" type="Particles2D" parent="."]
+material = SubResource( 3 )
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 4 )
+texture = ExtResource( 5 )
+
+[node name="DissapearParticles" type="Particles2D" parent="."]
+material = SubResource( 5 )
+emitting = false
+one_shot = true
+explosiveness = 0.87
+process_material = SubResource( 6 )
+texture = ExtResource( 2 )
+
+[node name="Particles" type="Particles2D" parent="."]
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 0.79
+process_material = SubResource( 7 )
+texture = ExtResource( 7 )
+
+[node name="Particles2" type="Particles2D" parent="."]
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 0.77
+process_material = SubResource( 7 )
+texture = ExtResource( 6 )
+
+[node name="Particles3" type="Particles2D" parent="."]
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 0.83
+process_material = SubResource( 7 )
+texture = ExtResource( 4 )
+
+[node name="PoofParticles" type="Particles2D" parent="."]
+material = SubResource( 8 )
+emitting = false
+one_shot = true
+explosiveness = 0.91
+process_material = SubResource( 9 )
+texture = ExtResource( 2 )
