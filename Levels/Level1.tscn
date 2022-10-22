@@ -237,32 +237,32 @@ offset = Vector2( 299, -123 )
 [node name="Decorations" type="Node" parent="."]
 
 [node name="GreenCouch" type="Sprite" parent="Decorations"]
-position = Vector2( 512, 16 )
-z_index = -4096
+position = Vector2( 512, 14 )
+z_index = 4000
 texture = ExtResource( 24 )
 
 [node name="RedCouch" type="Sprite" parent="Decorations"]
-position = Vector2( 1059, 16 )
+position = Vector2( 1058, 14 )
 texture = ExtResource( 23 )
 
 [node name="RedCouch2" type="Sprite" parent="Decorations"]
-position = Vector2( 2894, 16 )
+position = Vector2( 2894, 14 )
 texture = ExtResource( 23 )
 
 [node name="CatPicture" type="Sprite" parent="Decorations"]
-position = Vector2( -62, 2 )
+position = Vector2( -71, 2 )
 texture = ExtResource( 25 )
 
 [node name="Table4" type="Sprite" parent="Decorations"]
-position = Vector2( 2950, 27 )
+position = Vector2( 2950, 25 )
 texture = ExtResource( 27 )
 
 [node name="Table" type="Sprite" parent="Decorations"]
-position = Vector2( 994, 27 )
+position = Vector2( 994, 25 )
 texture = ExtResource( 27 )
 
 [node name="GreyCouch" type="Sprite" parent="Decorations"]
-position = Vector2( 3007, 16 )
+position = Vector2( 3007, 14 )
 texture = ExtResource( 26 )
 
 [node name="Window1" type="Sprite" parent="Decorations"]
@@ -270,58 +270,58 @@ position = Vector2( -131, 5 )
 texture = ExtResource( 28 )
 
 [node name="Table2" type="Sprite" parent="Decorations"]
-position = Vector2( 1624, 27 )
+position = Vector2( 1624, 25 )
 texture = ExtResource( 27 )
 
 [node name="Pot1" type="Sprite" parent="Decorations"]
-position = Vector2( 998, 15 )
+position = Vector2( 996, 13 )
 texture = ExtResource( 22 )
 
 [node name="Pot2" type="Sprite" parent="Decorations"]
-position = Vector2( 1619, 15 )
+position = Vector2( 1619, 13 )
 texture = ExtResource( 29 )
 
 [node name="Pot3" type="Sprite" parent="Decorations"]
-position = Vector2( 2949, 15 )
+position = Vector2( 2949, 13 )
 texture = ExtResource( 30 )
 
 [node name="Pot4" type="Sprite" parent="Decorations"]
-position = Vector2( 2958, 15 )
+position = Vector2( 2958, 13 )
 texture = ExtResource( 22 )
 
 [node name="Table3" type="Sprite" parent="Decorations"]
-position = Vector2( 209, 27 )
+position = Vector2( 209, 25 )
 texture = ExtResource( 27 )
 
 [node name="Pot5" type="Sprite" parent="Decorations"]
-position = Vector2( 211, 15 )
+position = Vector2( 214, 13 )
 texture = ExtResource( 29 )
 
 [node name="Pot6" type="Sprite" parent="Decorations"]
-position = Vector2( 201, 15 )
+position = Vector2( 203, 13 )
 texture = ExtResource( 22 )
 
 [node name="Light" parent="Decorations" instance=ExtResource( 31 )]
-position = Vector2( 359, -56 )
+position = Vector2( 359, -58 )
 
 [node name="Light2" parent="Decorations" instance=ExtResource( 31 )]
-position = Vector2( 1031, -56 )
+position = Vector2( 1031, -58 )
 
 [node name="Light3" parent="Decorations" instance=ExtResource( 31 )]
-position = Vector2( 1623, -56 )
+position = Vector2( 1623, -58 )
 
 [node name="Light4" parent="Decorations" instance=ExtResource( 31 )]
-position = Vector2( 2455, -56 )
+position = Vector2( 2455, -58 )
 
 [node name="Light5" parent="Decorations" instance=ExtResource( 31 )]
-position = Vector2( 2951, -56 )
+position = Vector2( 2951, -58 )
 
 [node name="BlackRectangle" type="Sprite" parent="Decorations"]
 position = Vector2( 724, 173 )
 texture = ExtResource( 13 )
 
 [node name="Door" type="Sprite" parent="Decorations"]
-position = Vector2( -175, 9 )
+position = Vector2( -175, 7 )
 texture = ExtResource( 12 )
 
 [node name="FakeCarpet2" type="Sprite" parent="Decorations"]
@@ -333,11 +333,11 @@ position = Vector2( 714, 38 )
 texture = ExtResource( 14 )
 
 [node name="FakeCarpet3" type="Sprite" parent="Decorations"]
-position = Vector2( 2520, 40 )
+position = Vector2( 2522, 38 )
 texture = ExtResource( 14 )
 
 [node name="FakeCarpet4" type="Sprite" parent="Decorations"]
-position = Vector2( 2536, 40 )
+position = Vector2( 2538, 38 )
 texture = ExtResource( 14 )
 
 [node name="BlackRectangle2" type="Sprite" parent="Decorations"]
@@ -345,57 +345,70 @@ position = Vector2( 2556, 174 )
 texture = ExtResource( 13 )
 
 [node name="CatCrushedAnimation" parent="Decorations" instance=ExtResource( 21 )]
-position = Vector2( 79, 22 )
+position = Vector2( 79, 20 )
 
 [node name="Cats" type="Node" parent="."]
 
 [node name="Cat" parent="Cats" instance=ExtResource( 7 )]
-position = Vector2( 916, 20 )
+position = Vector2( 916, 19 )
 speed = 70
 texture = ExtResource( 8 )
 dead_texture = ExtResource( 9 )
 left = true
 
 [node name="Cat2" parent="Cats" instance=ExtResource( 7 )]
-position = Vector2( 1295, 12 )
+position = Vector2( 1295, 19 )
 texture = ExtResource( 15 )
 dead_texture = ExtResource( 16 )
 left = true
 
 [node name="Cat3" parent="Cats" instance=ExtResource( 7 )]
-position = Vector2( 1989, 14 )
+position = Vector2( 1989, 19 )
 texture = ExtResource( 17 )
 dead_texture = ExtResource( 18 )
 left = true
 
 [node name="Cat4" parent="Cats" instance=ExtResource( 7 )]
-position = Vector2( 2262, 18 )
+position = Vector2( 2263, 19 )
 speed = 25
 texture = ExtResource( 19 )
 dead_texture = ExtResource( 20 )
 
 [node name="CatStopper3" parent="Cats" instance=ExtResource( 10 )]
-position = Vector2( 993, 20 )
+position = Vector2( 1079, 20 )
+
+[node name="CatStopper5" parent="Cats" instance=ExtResource( 10 )]
+position = Vector2( 991, 20 )
 
 [node name="CatStopper4" parent="Cats" instance=ExtResource( 10 )]
-position = Vector2( 1623, 20 )
+position = Vector2( 1359, 20 )
 
 [node name="CatStopper2" parent="Cats" instance=ExtResource( 10 )]
 position = Vector2( 2492, 21 )
 
+[node name="CatStopper8" parent="Cats" instance=ExtResource( 10 )]
+position = Vector2( 2148, 21 )
+
+[node name="CatStopper6" parent="Cats" instance=ExtResource( 10 )]
+position = Vector2( 1812, 21 )
+
+[node name="CatStopper7" parent="Cats" instance=ExtResource( 10 )]
+position = Vector2( 2036, 21 )
+
 [node name="Chandeliers" type="Node" parent="."]
 
 [node name="Chandelier6" parent="Chandeliers" instance=ExtResource( 6 )]
-position = Vector2( 2700, -46 )
+position = Vector2( 2700, -47 )
 
 [node name="Chandelier2" parent="Chandeliers" instance=ExtResource( 6 )]
-position = Vector2( 512, -46 )
+position = Vector2( 512, -47 )
+z_index = 4096
 
 [node name="Chandelier3" parent="Chandeliers" instance=ExtResource( 6 )]
-position = Vector2( 1435, -45 )
+position = Vector2( 1435, -47 )
 
 [node name="Chandelier4" parent="Chandeliers" instance=ExtResource( 6 )]
-position = Vector2( 2096, -45 )
+position = Vector2( 2096, -47 )
 
 [node name="Chandelier5" parent="Chandeliers" instance=ExtResource( 6 )]
-position = Vector2( 1752, -45 )
+position = Vector2( 1752, -47 )
