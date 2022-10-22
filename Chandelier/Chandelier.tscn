@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Chandelier/Art/Chandelier.png" type="Texture" id=1]
 [ext_resource path="res://Chandelier/Chandelier.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Chandelier/Art/Shard1.png" type="Texture" id=5]
 [ext_resource path="res://Chandelier/Art/ChandelierBroken.png" type="Texture" id=6]
 [ext_resource path="res://Levels/Art/WhiteParticle.png" type="Texture" id=7]
+[ext_resource path="res://Levels/Art/Glow.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 11.5, 17 )
@@ -77,11 +78,22 @@ tracks/3/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite/Glow:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=8]
 resource_name = "crash"
 length = 5.0
-step = 0.025
 tracks/0/type = "method"
 tracks/0/path = NodePath("Particles")
 tracks/0/interp = 1
@@ -200,6 +212,18 @@ tracks/8/keys = {
 "method": "restart"
 } ]
 }
+tracks/9/type = "value"
+tracks/9/path = NodePath("Sprite/Glow:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="CanvasItemMaterial" id=10]
 particles_animation = true
@@ -224,6 +248,11 @@ script = ExtResource( 2 )
 [node name="Sprite" type="Sprite" parent="."]
 z_index = -1
 texture = ExtResource( 1 )
+
+[node name="Glow" type="Sprite" parent="Sprite"]
+scale = Vector2( 0.160156, 0.160156 )
+z_index = -4096
+texture = ExtResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.5, -2 )
