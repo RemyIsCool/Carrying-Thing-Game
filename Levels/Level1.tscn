@@ -238,7 +238,7 @@ offset = Vector2( 299, -123 )
 
 [node name="GreenCouch" type="Sprite" parent="Decorations"]
 position = Vector2( 512, 14 )
-z_index = 4000
+z_index = -1
 texture = ExtResource( 24 )
 
 [node name="RedCouch" type="Sprite" parent="Decorations"]
