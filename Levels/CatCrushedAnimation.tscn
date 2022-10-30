@@ -358,3 +358,6 @@ one_shot = true
 explosiveness = 0.91
 process_material = SubResource( 9 )
 texture = ExtResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 179, 0 )
