@@ -117,9 +117,11 @@ anim_speed = 1.0
 script = ExtResource( 2 )
 
 [node name="SpritesheetAnimation" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 16 )
 scale = Vector2( 1e-05, 1e-05 )
 z_index = 4096
 texture = ExtResource( 1 )
+offset = Vector2( 0, -16 )
 hframes = 8
 interval = 0.1
 

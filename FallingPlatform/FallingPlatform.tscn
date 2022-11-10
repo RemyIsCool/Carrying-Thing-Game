@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Levels/Art/FallingPlatform.png" type="Texture" id=1]
+[ext_resource path="res://FallingPlatform/Art/FallingPlatform.png" type="Texture" id=1]
 [ext_resource path="res://FallingPlatform/FallingPlatform.gd" type="Script" id=2]
 [ext_resource path="res://Levels/Art/WhiteParticle.png" type="Texture" id=3]
 
@@ -8,7 +8,7 @@
 extents = Vector2( 32, 8 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 31, 10.25 )
+extents = Vector2( 31, 0.5 )
 
 [sub_resource type="CanvasItemMaterial" id=5]
 particles_animation = true
@@ -24,6 +24,9 @@ initial_velocity = 50.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 anim_speed = 1.0
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 31, 7.5 )
 
 [node name="FallingPlatform" type="StaticBody2D"]
 z_index = -4096
@@ -41,11 +44,12 @@ shape = SubResource( 1 )
 position = Vector2( 0, -10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionDetector"]
-position = Vector2( 0, 7.75 )
+position = Vector2( 0, 1.5 )
 shape = SubResource( 2 )
 
 [node name="Particles" type="Particles2D" parent="."]
 material = SubResource( 5 )
+z_index = 4096
 emitting = false
 one_shot = true
 explosiveness = 0.79
@@ -56,5 +60,11 @@ texture = ExtResource( 3 )
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="body_entered" from="CollisionDetector" to="." method="_on_CollisionDetector_body_entered"]
+[node name="FloorDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorDetector"]
+position = Vector2( 0, 0.5 )
+shape = SubResource( 7 )
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="body_entered" from="FloorDetector" to="." method="_on_FloorDetector_body_entered"]

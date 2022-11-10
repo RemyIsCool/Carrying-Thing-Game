@@ -3,15 +3,20 @@ extends KinematicBody2D
 
 export var gravity := 40
 export var speed := 50
-export var texture: Texture
-export var dead_texture: Texture
 export var left := false
+export (int, "Dark Grey", "Orange", "Dark Brown", "Light Brown", "Red", "Green", "White", "Black", "Fat") var cat := 1
 
 onready var velocity := Vector2(speed, 0)
 
 var dead := false
 
+var texture: Texture
+var dead_texture: Texture
+
 func _ready() -> void:
+	texture = load("res://Cat/Art/Cat" + str(cat + 1) + ".png")
+	dead_texture = load("res://Cat/Art/CatDeath" + str(cat + 1) + ".png")
+
 	$SpritesheetAnimation.texture = texture
 	
 	if left:
@@ -39,8 +44,12 @@ func _physics_process(delta: float) -> void:
 	if $CollisionDetection.overlaps_body(GlobalNodes.player) and not $DeathTimer.time_left > 0:
 		GlobalNodes.player.die()
 		
-	if $CollisionDetection.overlaps_body(GlobalNodes.box) and $BoxBufferTimer.time_left > 0 and not GlobalNodes.player.holding:
-		die()
+	if $CollisionDetection.overlaps_body(GlobalNodes.box) and not GlobalNodes.player.holding:
+		if $BoxBufferTimer.time_left > 0:
+			die()
+		else:
+			$TeleportParticles.restart()
+			GlobalNodes.box.position = GlobalNodes.player.position
 	
 func die() -> void:
 	dead = true

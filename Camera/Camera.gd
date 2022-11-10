@@ -10,9 +10,6 @@ var shaking := false
 
 func _ready() -> void:
 	position = GlobalNodes.player.position
-	print(GlobalNodes.player.position)
-	print(position)
-	print(position == GlobalNodes.player.position)
 	GlobalNodes.camera = self
 
 func _physics_process(delta: float) -> void:

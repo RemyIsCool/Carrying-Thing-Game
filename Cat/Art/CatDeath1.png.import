@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FallingPlatform.png-3fa0ffa9c41377ab77f8c31aa27b5438.stex"
+path="res://.import/CatDeath1.png-6e00c08fefd27439e9f29afbfb0166c1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Levels/Art/FallingPlatform.png"
-dest_files=[ "res://.import/FallingPlatform.png-3fa0ffa9c41377ab77f8c31aa27b5438.stex" ]
+source_file="res://Cat/Art/CatDeath1.png"
+dest_files=[ "res://.import/CatDeath1.png-6e00c08fefd27439e9f29afbfb0166c1.stex" ]
 
 [params]
 
