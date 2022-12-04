@@ -115,7 +115,8 @@ func _physics_process(delta: float) -> void:
 	
 	# Actually moving the player
 	
-	velocity = move_and_slide(velocity, Vector2.UP)
+	var snap = Vector2.DOWN * 16 if is_on_floor() and not jumped else Vector2.ZERO
+	velocity = move_and_slide_with_snap(velocity, snap, Vector2.UP)
 	
 	# Visual effects
 	$WalkParticles.emitting = Input.get_axis("left", "right") != 0 and is_on_floor() and not is_on_wall()

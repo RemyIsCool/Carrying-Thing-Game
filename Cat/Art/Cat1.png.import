@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FatCat.png-5d258eedae18d4d848298b5da6f69956.stex"
+path="res://.import/Cat1.png-b67a531c419242b532ce0cbccbc5a1ff.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Cat/Art/FatCat.png"
-dest_files=[ "res://.import/FatCat.png-5d258eedae18d4d848298b5da6f69956.stex" ]
+source_file="res://Cat/Art/Cat1.png"
+dest_files=[ "res://.import/Cat1.png-b67a531c419242b532ce0cbccbc5a1ff.stex" ]
 
 [params]
 
