@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Levels/TileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://Levels/Art/CatPicture.png" type="Texture" id=14]
 [ext_resource path="res://Cat/Cat.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Cat/CatStopper.tscn" type="PackedScene" id=16]
+[ext_resource path="res://PauseScreen/PauseScreen.tscn" type="PackedScene" id=17]
 
 [node name="Level1" type="Node2D"]
 
@@ -161,3 +162,6 @@ texture = ExtResource( 10 )
 [node name="Pot8" type="Sprite" parent="."]
 position = Vector2( 337, 78 )
 texture = ExtResource( 7 )
+
+[node name="PauseScreen" parent="." instance=ExtResource( 17 )]
+visible = false
